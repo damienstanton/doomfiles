@@ -1,0 +1,56 @@
+#!/usr/bin/env zsh
+set -e
+
+DOOMPATH="/Applications/GZDoom.app/Contents/MacOS/gzdoom"
+
+reelism_brutal() {
+	$DOOMPATH -file \
+		$HOME/doomfiles/brutalv21/brutalv21.pk3 \
+		$HOME/doomfiles/reelism_x3.1/reelism_x3.1.pk3
+}
+
+reelism_doosk() {
+	 $DOOMPATH -file \
+		$HOME/doomfiles/Doosk/base/doosk_base.pk3 \
+		$HOME/doomfiles/Doosk/base/doosk_moosic.pk3 \
+		$HOME/doomfiles/Doosk/base/DuskMovement.pk3 \
+		$HOME/doomfiles/reelism_x3.1/reelism_x3.1.pk3 
+}
+
+doosk() {
+	$DOOMPATH -file \
+		$HOME/doomfiles/Doosk/base/doosk_base.pk3 \
+		$HOME/doomfiles/Doosk/base/doosk_moosic.pk3 \
+		$HOME/doomfiles/Doosk/base/DuskMovement.pk3
+}
+
+print_help() {
+	echo "Choose from the following parameters:"
+	echo "  💀[brutal]: Brutal Doom v21"
+	echo "  💀[doosk]: Doosk"
+	echo "  💀[reelism]: Reelism mod plus Brutal Doom"
+	echo "  💀[reelism-doosk]: Reelism mod plus Doosk"
+	echo "  ⚙️ [custom]: Any additional params are forwarded to gzdoom"
+	echo "  🤷[--help]: Print this help screen"
+}
+
+case $1 in
+	"brutal")
+		$DOOMPATH -file $HOME/doomfiles/brutalv21/brutalv21.pk3
+		;;
+	"doosk")
+		doosk
+		;;
+	"reelism")
+		reelism_brutal
+		;;
+	"reelism-doosk")
+		reelism_doosk
+		;;
+	"custom")
+		$DOOMPATH ${@:2}
+		;;
+	* | "--help")
+		print_help
+		;;
+esac
